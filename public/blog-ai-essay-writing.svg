@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="aiGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5B21B6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="aiGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06B6D4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891B2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#F1F5F9"/>
+  
+  <!-- AI Brain -->
+  <circle cx="200" cy="120" r="60" fill="url(#aiGrad1)" opacity="0.9"/>
+  
+  <!-- Neural network lines -->
+  <path d="M160 100 L240 140" stroke="#06B6D4" stroke-width="2" opacity="0.7"/>
+  <path d="M160 140 L240 100" stroke="#06B6D4" stroke-width="2" opacity="0.7"/>
+  <path d="M180 80 L220 160" stroke="#8B5CF6" stroke-width="2" opacity="0.7"/>
+  <path d="M220 80 L180 160" stroke="#8B5CF6" stroke-width="2" opacity="0.7"/>
+  
+  <!-- Neural nodes -->
+  <circle cx="160" cy="100" r="8" fill="#06B6D4"/>
+  <circle cx="240" cy="100" r="8" fill="#8B5CF6"/>
+  <circle cx="160" cy="140" r="8" fill="#8B5CF6"/>
+  <circle cx="240" cy="140" r="8" fill="#06B6D4"/>
+  <circle cx="180" cy="80" r="6" fill="#F59E0B"/>
+  <circle cx="220" cy="80" r="6" fill="#F59E0B"/>
+  <circle cx="180" cy="160" r="6" fill="#F59E0B"/>
+  <circle cx="220" cy="160" r="6" fill="#F59E0B"/>
+  
+  <!-- Document output -->
+  <rect x="120" y="200" width="160" height="80" rx="8" fill="white" stroke="#E2E8F0" stroke-width="2"/>
+  
+  <!-- Text lines in document -->
+  <rect x="135" y="215" width="100" height="4" rx="2" fill="#8B5CF6"/>
+  <rect x="135" y="225" width="130" height="3" rx="1.5" fill="#CBD5E1"/>
+  <rect x="135" y="233" width="120" height="3" rx="1.5" fill="#CBD5E1"/>
+  <rect x="135" y="241" width="110" height="3" rx="1.5" fill="#CBD5E1"/>
+  <rect x="135" y="249" width="125" height="3" rx="1.5" fill="#CBD5E1"/>
+  <rect x="135" y="257" width="115" height="3" rx="1.5" fill="#CBD5E1"/>
+  <rect x="135" y="265" width="105" height="3" rx="1.5" fill="#CBD5E1"/>
+  
+  <!-- Arrow from brain to document -->
+  <path d="M200 180 L200 200" stroke="url(#aiGrad2)" stroke-width="4" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#06B6D4"/>
+    </marker>
+  </defs>
+  
+  <!-- Floating AI symbols -->
+  <text x="50" y="50" font-family="Arial, sans-serif" font-size="24" fill="#8B5CF6" opacity="0.6">AI</text>
+  <text x="320" y="80" font-family="Arial, sans-serif" font-size="20" fill="#06B6D4" opacity="0.6">GPT</text>
+  <text x="60" y="250" font-family="Arial, sans-serif" font-size="18" fill="#F59E0B" opacity="0.6">ML</text>
+  
+  <!-- Sparkles -->
+  <circle cx="100" cy="120" r="3" fill="#F59E0B"/>
+  <circle cx="300" cy="150" r="3" fill="#F59E0B"/>
+  <circle cx="80" cy="180" r="2" fill="#8B5CF6"/>
+  <circle cx="320" cy="200" r="2" fill="#06B6D4"/>
+</svg> 

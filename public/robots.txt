@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Disallow private/admin areas
+Disallow: /api/
+Disallow: /auth-debug/
+Disallow: /auth-test/
+Disallow: /_next/
+Disallow: /admin/
+
+# Allow important pages
+Allow: /
+Allow: /features/
+Allow: /blog/
+Allow: /use-cases/
+Allow: /pricing/
+Allow: /about/
+Allow: /contact/
+
+# Crawl delay
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://essayy.com/sitemap.xml 

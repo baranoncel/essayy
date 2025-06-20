@@ -1,0 +1,141 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://essayy.com/#organization",
+      "name": "Essayy",
+      "url": "https://essayy.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://essayy.com/logo.svg",
+        "width": 200,
+        "height": 200
+      },
+      "description": "AI-powered essay writing platform for students and educators",
+      "sameAs": [
+        "https://twitter.com/essayy_ai",
+        "https://linkedin.com/company/essayy",
+        "https://github.com/essayy"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "url": "https://essayy.com/contact"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://essayy.com/#website",
+      "url": "https://essayy.com",
+      "name": "Essayy - AI Essay Writer & Generator",
+      "description": "Free AI essay writer, plagiarism checker, citation generator, and AI humanizer. Perfect for students and educators.",
+      "publisher": {
+        "@id": "https://essayy.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://essayy.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://essayy.com/#application",
+      "name": "Essayy AI Essay Writer",
+      "description": "Advanced AI essay writing tool powered by GPT-4 for generating high-quality academic content",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "2547",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": [
+        "AI Essay Generation",
+        "Plagiarism Detection",
+        "Citation Generator",
+        "AI Humanizer",
+        "Grammar Checker",
+        "Multiple Essay Types Support",
+        "APA, MLA, Chicago Citations"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://essayy.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the AI essay writer really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, our basic AI essay writer is completely free to use. You can generate essays, use our AI humanizer, and access plagiarism detection without any cost. Premium features are available for advanced functionality."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the AI essay generator work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our AI uses advanced GPT-4 technology to analyze your topic and requirements, then generates well-structured, original essays with proper introduction, body paragraphs, and conclusion. It supports all major essay types and citation styles."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the content plagiarism-free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. Our AI generates original content from scratch for every request. We also include built-in plagiarism detection to ensure 100% unique content that passes all academic integrity checks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What citation styles are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We support all major citation styles including APA, MLA, Chicago, Harvard, and more. Our citation generator automatically formats references according to the latest style guidelines."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://essayy.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://essayy.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Features",
+          "item": "https://essayy.com/features"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Blog",
+          "item": "https://essayy.com/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Use Cases",
+          "item": "https://essayy.com/use-cases"
+        }
+      ]
+    }
+  ]
+} 

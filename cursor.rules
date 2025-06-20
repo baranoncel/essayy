@@ -1,0 +1,25 @@
+[general]
+code_style = "typescript-strict"
+indent_style = 2
+max_line_length = 100
+import_sort = true
+
+[naming]
+components = PascalCase
+hooks      = camelCase
+constants  = UPPER_SNAKE_CASE
+
+[commit]
+# Conventional Commit messages so Cursor can auto‑generate changelog
+format = "<type>(scope): <subject>"
+
+[testing]
+require_tests_for = ["pages/**", "lib/**", "components/**"]
+auto_mock        = false
+
+[infrastructure]
+# Run context7 mcp automatically after any dependency resolution
+postinstall = "npm run context7:mcp"
+
+[mcp]
+context = 7 
