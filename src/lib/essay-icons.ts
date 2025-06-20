@@ -171,9 +171,8 @@ export function getEssayIcon(essay: any): string {
   
   // If no match found, use a consistent fallback based on essay properties
   const combinedString = `${topic}${essayType}` || 'default'
-  // @ts-ignore - TypeScript error on next line, but it works correctly
   const hash = hashString(combinedString)
-  return fallbackEmojis[hash % fallbackEmojis.length]
+  return fallbackEmojis[hash % fallbackEmojis.length] || '📝'
 }
 
 // Simple hash function for consistent emoji selection
