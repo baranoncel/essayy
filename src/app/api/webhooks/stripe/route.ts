@@ -3,14 +3,20 @@ import { headers } from 'next/headers'
 import Stripe from 'stripe'
 import { createServerSupabaseClient } from '@/lib/supabase'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
   apiVersion: '2023-10-16',
 })
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET || ''
 
 export async function POST(req: NextRequest) {
   try {
+    // Check if required environment variables are available
+    if (!process.env.STRIPE_SECRET_KEY || !endpointSecret) {
+      console.warn('Stripe environment variables not configured')
+      return new NextResponse('Webhook not configured', { status: 503 })
+    }
+
     const body = await req.text()
     const headersList = await headers()
     const sig = headersList.get('stripe-signature')!
@@ -25,6 +31,12 @@ export async function POST(req: NextRequest) {
     }
 
     const supabase = createServerSupabaseClient()
+    
+    // Check if Supabase client is available
+    if (!supabase) {
+      console.warn('Supabase not configured, skipping webhook processing')
+      return new NextResponse('Service not configured', { status: 503 })
+    }
 
     switch (event.type) {
       case 'customer.subscription.created':
