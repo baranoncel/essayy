@@ -12,14 +12,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AI Content Detector | 99% Accurate AI Text Detection Tool - Essayy',
     description: 'Detect AI-generated content with 99% accuracy. Free AI detector for educators and students to ensure academic integrity.',
-    url: 'https://essayy.com/features/ai-content-detector',
+    url: 'https://essayy.vercel.app/features/ai-content-detector',
     siteName: 'Essayy',
     images: [
       {
-        url: '/og-ai-detector.jpg',
+        url: '/og-detector.svg',
         width: 1200,
         height: 630,
         alt: 'AI Content Detector - Detect AI Writing',
+        type: 'image/svg+xml',
       },
     ],
     locale: 'en_US',
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'AI Content Detector | 99% Accurate AI Text Detection Tool',
     description: 'Detect AI-generated content with 99% accuracy. Free AI detector for educators and students.',
-    images: ['/og-ai-detector.jpg'],
+    images: ['/og-detector.svg'],
   },
   robots: {
     index: true,
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://essayy.com/features/ai-content-detector',
+    canonical: 'https://essayy.vercel.app/features/ai-content-detector',
   },
 }
 
@@ -52,7 +53,7 @@ const jsonLd = {
   '@type': 'SoftwareApplication',
   name: 'Essayy AI Content Detector',
   description: 'Detect AI-generated content with 99% accuracy using advanced machine learning technology',
-  url: 'https://essayy.com/features/ai-content-detector',
+  url: 'https://essayy.vercel.app/features/ai-content-detector',
   applicationCategory: 'EducationalApplication',
   operatingSystem: 'Web',
   offers: {
@@ -76,7 +77,7 @@ const jsonLd = {
   creator: {
     '@type': 'Organization',
     name: 'Essayy',
-    url: 'https://essayy.com',
+    url: 'https://essayy.vercel.app',
   },
 }
 

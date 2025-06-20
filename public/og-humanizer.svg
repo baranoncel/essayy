@@ -1,0 +1,103 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fde68a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="humanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4f46e5;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="150" r="50" fill="url(#humanGradient)" opacity="0.2"/>
+  <circle cx="1050" cy="450" r="70" fill="url(#aiGradient)" opacity="0.15"/>
+  
+  <!-- Main content area -->
+  <rect x="60" y="60" width="1080" height="510" rx="20" fill="white" opacity="0.95"/>
+  
+  <!-- Icon -->
+  <g transform="translate(100, 100)">
+    <circle cx="25" cy="25" r="23" fill="url(#humanGradient)"/>
+    <path d="M15 15 Q25 8 35 15 Q35 25 25 32 Q15 25 15 15 Z" fill="white"/>
+    <circle cx="20" cy="20" r="2" fill="url(#humanGradient)"/>
+    <circle cx="30" cy="20" r="2" fill="url(#humanGradient)"/>
+    <path d="M18 28 Q25 32 32 28" stroke="url(#humanGradient)" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Main heading -->
+  <text x="180" y="150" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="bold" fill="#1e293b">
+    AI Humanizer
+  </text>
+  
+  <!-- Subheading -->
+  <text x="180" y="185" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="600" fill="url(#humanGradient)">
+    Bypass AI Detection • Make Content Human-Like
+  </text>
+  
+  <!-- Features -->
+  <g font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#475569">
+    <text x="180" y="230">🚀 Bypass ChatGPT, GPT-4, and Turnitin detection</text>
+    <text x="180" y="255">✍️ Preserve original meaning and context</text>
+    <text x="180" y="280">⚡ Instant humanization in seconds</text>
+    <text x="180" y="305">🎯 99.9% success rate against AI detectors</text>
+    <text x="180" y="330">📝 Maintain academic writing standards</text>
+  </g>
+  
+  <!-- Process illustration -->
+  <g transform="translate(600, 150)">
+    <!-- AI Text Box -->
+    <rect x="0" y="0" width="150" height="80" rx="8" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="75" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#6366f1" text-anchor="middle">AI Text</text>
+    <rect x="10" y="35" width="130" height="4" rx="2" fill="#cbd5e1"/>
+    <rect x="10" y="45" width="100" height="4" rx="2" fill="#cbd5e1"/>
+    <rect x="10" y="55" width="120" height="4" rx="2" fill="#cbd5e1"/>
+    
+    <!-- Arrow -->
+    <path d="M170 40 L200 40" stroke="url(#humanGradient)" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <text x="185" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="url(#humanGradient)" text-anchor="middle">HUMANIZE</text>
+    
+    <!-- Human Text Box -->
+    <rect x="220" y="0" width="150" height="80" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <text x="295" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#f59e0b" text-anchor="middle">Human Text</text>
+    <rect x="230" y="35" width="130" height="4" rx="2" fill="#fbbf24"/>
+    <rect x="230" y="45" width="110" height="4" rx="2" fill="#fbbf24"/>
+    <rect x="230" y="55" width="125" height="4" rx="2" fill="#fbbf24"/>
+  </g>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="url(#humanGradient)"/>
+    </marker>
+  </defs>
+  
+  <!-- Stats -->
+  <g transform="translate(180, 380)">
+    <rect x="0" y="0" width="800" height="80" rx="12" fill="url(#humanGradient)" opacity="0.1"/>
+    <text x="50" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="bold" fill="url(#humanGradient)">99.9%</text>
+    <text x="50" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#78716c">Success Rate</text>
+    
+    <text x="200" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="bold" fill="url(#humanGradient)">10M+</text>
+    <text x="200" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#78716c">Words Humanized</text>
+    
+    <text x="350" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="bold" fill="url(#humanGradient)">&lt;30s</text>
+    <text x="350" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#78716c">Processing Time</text>
+    
+    <rect x="500" y="15" width="120" height="35" rx="17" fill="url(#humanGradient)"/>
+    <text x="560" y="37" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="white" text-anchor="middle">Try Free</text>
+  </g>
+  
+  <!-- Bottom text -->
+  <text x="600" y="550" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#78716c" text-anchor="middle">
+    Essayy AI Humanizer • Make Your AI Content Undetectable
+  </text>
+</svg> 

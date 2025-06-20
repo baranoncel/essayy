@@ -12,14 +12,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AI Humanizer | Make AI Content Undetectable & Human-Like - Essayy',
     description: 'Transform AI-generated content into natural, human-like writing that bypasses AI detection tools. Free AI humanizer for students and professionals.',
-    url: 'https://essayy.com/features/ai-humanizer',
+    url: 'https://essayy.vercel.app/features/ai-humanizer',
     siteName: 'Essayy',
     images: [
       {
-        url: '/og-ai-humanizer.jpg',
+        url: '/og-humanizer.svg',
         width: 1200,
         height: 630,
         alt: 'AI Humanizer - Make AI Content Human-Like',
+        type: 'image/svg+xml',
       },
     ],
     locale: 'en_US',
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'AI Humanizer | Make AI Content Undetectable & Human-Like',
     description: 'Transform AI-generated content into natural, human-like writing that bypasses AI detection tools.',
-    images: ['/og-ai-humanizer.jpg'],
+    images: ['/og-humanizer.svg'],
   },
   robots: {
     index: true,
