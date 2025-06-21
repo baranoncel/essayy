@@ -12,13 +12,23 @@ export async function GET(request: NextRequest) {
     code: code ? 'present' : 'missing',
     error,
     errorDescription,
-    url: requestUrl.toString()
+    url: requestUrl.toString(),
+    origin: requestUrl.origin,
+    host: requestUrl.host
   })
 
   // Get the correct base URL for redirects
   const getBaseUrl = () => {
+    console.log('Environment check:', {
+      NODE_ENV: process.env.NODE_ENV,
+      NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+      VERCEL_URL: process.env.VERCEL_URL,
+      requestOrigin: requestUrl.origin
+    })
+
     // Check if we have a custom app URL set
     if (process.env.NEXT_PUBLIC_APP_URL) {
+      console.log('Using NEXT_PUBLIC_APP_URL:', process.env.NEXT_PUBLIC_APP_URL)
       return process.env.NEXT_PUBLIC_APP_URL
     }
     
@@ -26,22 +36,28 @@ export async function GET(request: NextRequest) {
     if (process.env.NODE_ENV === 'production') {
       // Try to get from Vercel environment variables
       if (process.env.VERCEL_URL) {
-        return `https://${process.env.VERCEL_URL}`
+        const vercelUrl = `https://${process.env.VERCEL_URL}`
+        console.log('Using VERCEL_URL:', vercelUrl)
+        return vercelUrl
       }
       // Fallback to request origin but ensure it's not localhost
       const origin = requestUrl.origin
       if (!origin.includes('localhost') && !origin.includes('127.0.0.1')) {
+        console.log('Using request origin:', origin)
         return origin
       }
       // Final fallback for production
-      return 'https://essayy.vercel.app'
+      console.log('Using final fallback: https://essayy.com')
+      return 'https://essayy.com'
     }
     
     // For development, use localhost
+    console.log('Using development localhost')
     return 'http://localhost:3000'
   }
 
   const baseUrl = getBaseUrl()
+  console.log('Final baseUrl for redirects:', baseUrl)
 
   // Handle OAuth errors
   if (error) {
@@ -51,6 +67,7 @@ export async function GET(request: NextRequest) {
     if (errorDescription) {
       redirectUrl.searchParams.set('error_description', errorDescription)
     }
+    console.log('Redirecting to error URL:', redirectUrl.toString())
     return NextResponse.redirect(redirectUrl)
   }
 
@@ -58,7 +75,9 @@ export async function GET(request: NextRequest) {
     // Check if Supabase is configured
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
       console.warn('Supabase not configured, redirecting to home')
-      return NextResponse.redirect(new URL('/', baseUrl))
+      const homeUrl = new URL('/', baseUrl)
+      console.log('Redirecting to home (no Supabase):', homeUrl.toString())
+      return NextResponse.redirect(homeUrl)
     }
 
     const cookieStore = await cookies()
@@ -87,6 +106,7 @@ export async function GET(request: NextRequest) {
         console.error('Token exchange error:', exchangeError)
         const redirectUrl = new URL('/', baseUrl)
         redirectUrl.searchParams.set('auth_error', 'token_exchange_failed')
+        console.log('Redirecting to error URL (token exchange):', redirectUrl.toString())
         return NextResponse.redirect(redirectUrl)
       }
 
@@ -97,7 +117,9 @@ export async function GET(request: NextRequest) {
       })
 
       // Create response with redirect to app dashboard
-      const response = NextResponse.redirect(new URL('/app', baseUrl))
+      const appUrl = new URL('/app', baseUrl)
+      console.log('Redirecting to app dashboard:', appUrl.toString())
+      const response = NextResponse.redirect(appUrl)
       
       return response
 
@@ -105,10 +127,13 @@ export async function GET(request: NextRequest) {
       console.error('OAuth callback error:', error)
       const redirectUrl = new URL('/', baseUrl)
       redirectUrl.searchParams.set('auth_error', 'callback_failed')
+      console.log('Redirecting to error URL (callback failed):', redirectUrl.toString())
       return NextResponse.redirect(redirectUrl)
     }
   }
 
   console.log('No code provided, redirecting to home')
-  return NextResponse.redirect(new URL('/', baseUrl))
+  const homeUrl = new URL('/', baseUrl)
+  console.log('Final redirect URL:', homeUrl.toString())
+  return NextResponse.redirect(homeUrl)
 } 

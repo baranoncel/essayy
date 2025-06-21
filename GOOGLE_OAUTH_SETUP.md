@@ -8,74 +8,155 @@ This guide will help you set up Google OAuth authentication for your Essayy appl
 - A Google Cloud Platform account
 - Your application deployed or running on a known domain
 
-## Step 1: Configure Google Cloud Console
-
-### 1.1 Create or Select a Project
+## Step 1: Create Google Cloud Project
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select an existing one
+2. Create a new project or select existing one
+3. Enable the Google+ API or People API
 
-### 1.2 Enable Google+ API
-1. In the Google Cloud Console, go to **APIs & Services** > **Library**
-2. Search for "Google+ API" or "Google Identity"
-3. Click on "Google+ API" and click **Enable**
-
-### 1.3 Configure OAuth Consent Screen
-1. Go to **APIs & Services** > **OAuth consent screen**
-2. Choose **External** user type (unless you're using Google Workspace)
-3. Fill in the required information:
-   - **App name**: Essayy
-   - **User support email**: Your email
-   - **App logo**: Upload your app logo (optional)
-   - **App domain**: Your domain (e.g., https://yourdomain.com)
-   - **Developer contact information**: Your email
-4. Add scopes (optional):
-   - `email`
-   - `profile`
-   - `openid`
+## Step 2: Configure OAuth Consent Screen
+1. Go to **APIs & Services** → **OAuth consent screen**
+2. Choose **External** user type
+3. Fill in required fields:
+   - App name: "Essayy"
+   - User support email: your email
+   - Developer contact information: your email
+4. Add scopes: `email`, `profile`, `openid`
 5. Add test users if needed
-6. Save and continue
 
-### 1.4 Create OAuth Credentials
-1. Go to **APIs & Services** > **Credentials**
-2. Click **Create Credentials** > **OAuth client ID**
-3. Choose **Web application**
-4. Set the name: "Essayy Web Client"
-5. Add **Authorized JavaScript origins**:
-   - `http://localhost:3000` (for development)
-   - `https://yourdomain.com` (for production)
-6. Add **Authorized redirect URIs**:
-   - `http://localhost:3000/api/auth/callback` (for development)
-   - `https://yourdomain.com/api/auth/callback` (for production)
-   - Your Supabase callback URL (see Step 2)
-7. Click **Create**
-8. **Save the Client ID and Client Secret** - you'll need these for Supabase
+## Step 3: Create OAuth 2.0 Credentials
+1. Go to **APIs & Services** → **Credentials**
+2. Click **+ CREATE CREDENTIALS** → **OAuth 2.0 Client IDs**
+3. Application type: **Web application**
+4. Name: "Essayy Web Client"
 
-## Step 2: Configure Supabase
+### 🚨 CRITICAL: Authorized JavaScript Origins
+Add these URLs in **exact order** (order can matter for some OAuth providers):
 
-### 2.1 Get Supabase Callback URL
-1. Go to your [Supabase Dashboard](https://supabase.com/dashboard)
-2. Select your project
-3. Go to **Authentication** > **Providers**
-4. Find **Google** provider
-5. Note the callback URL format: `https://[your-project].supabase.co/auth/v1/callback`
+```
+https://essayy.com
+https://essayy.vercel.app
+https://essayy-1e575sjwc-baranoncels-projects.vercel.app
+http://localhost:3000
+```
 
-### 2.2 Add Callback URL to Google
-1. Go back to Google Cloud Console > **Credentials**
-2. Edit your OAuth client
-3. Add the Supabase callback URL to **Authorized redirect URIs**:
-   - `https://[your-project].supabase.co/auth/v1/callback`
-4. Save the changes
+### 🚨 CRITICAL: Authorized Redirect URIs
+Add these URLs in **exact order**:
 
-### 2.3 Configure Google Provider in Supabase
-1. In Supabase Dashboard, go to **Authentication** > **Providers**
-2. Find **Google** and click to expand
-3. Toggle **Enable Google provider** to ON
-4. Enter your Google OAuth credentials:
-   - **Client ID**: From Google Cloud Console
-   - **Client Secret**: From Google Cloud Console
-5. Click **Save**
+```
+https://essayy.com/api/auth/callback
+https://essayy.vercel.app/api/auth/callback  
+https://essayy-1e575sjwc-baranoncels-projects.vercel.app/api/auth/callback
+http://localhost:3000/api/auth/callback
+```
 
-## Step 3: Environment Variables
+## Step 4: Get Client Credentials
+1. Copy **Client ID** and **Client Secret**
+2. Add them to your Supabase Auth settings
+
+## Step 5: Configure Supabase
+1. Go to Supabase Dashboard → Authentication → Providers
+2. Enable Google provider
+3. Add your Google **Client ID** and **Client Secret**
+4. Set redirect URL to: `https://[your-supabase-ref].supabase.co/auth/v1/callback`
+
+## 🔧 Troubleshooting OAuth Redirect Issues
+
+### Issue: Still Redirecting to Localhost
+
+**Most Common Causes:**
+
+1. **Environment Variable Not Set Properly**
+   ```bash
+   # Check if NEXT_PUBLIC_APP_URL is set in Vercel
+   vercel env ls
+   
+   # Set for all environments
+   vercel env add NEXT_PUBLIC_APP_URL
+   # Value: https://essayy.com
+   # Environments: Production, Preview, Development
+   ```
+
+2. **Google Cloud Console URLs Missing**
+   - Ensure **all** production URLs are added to both sections
+   - URLs must match **exactly** (no trailing slashes)
+   - Order can matter - put production URLs first
+
+3. **Caching Issues**
+   ```bash
+   # Clear browser cache and cookies
+   # Or test in incognito mode
+   
+   # Redeploy after changes
+   vercel --prod
+   ```
+
+4. **Supabase Configuration**
+   - Check if Google provider is enabled in Supabase
+   - Verify Client ID/Secret are correct
+   - Ensure Supabase redirect URL is configured
+
+### Debug Steps:
+
+1. **Check Vercel Logs**
+   ```bash
+   vercel logs --follow
+   ```
+   Look for console.log messages from the callback route
+
+2. **Test Environment Variables**
+   ```bash
+   # In your local environment
+   echo $NEXT_PUBLIC_APP_URL
+   
+   # Should output: https://essayy.com
+   ```
+
+3. **Verify Google Cloud Console**
+   - Double-check all URLs are added
+   - No typos in domain names
+   - Both HTTP and HTTPS versions if needed
+
+4. **Browser Network Tab**
+   - Watch the OAuth flow in browser dev tools
+   - Check what redirect URLs are being used
+   - Look for any error responses
+
+### Common URL Patterns That Work:
+
+✅ **Correct Format:**
+```
+https://essayy.com
+https://essayy.com/api/auth/callback
+```
+
+❌ **Incorrect Format:**
+```
+https://essayy.com/           (trailing slash)
+http://essayy.com             (wrong protocol)
+https://www.essayy.com        (www subdomain if not used)
+```
+
+### Environment Variable Priority:
+The callback route checks in this order:
+1. `NEXT_PUBLIC_APP_URL` (highest priority)
+2. `VERCEL_URL` (for Vercel deployments)
+3. Request origin (if not localhost)
+4. Fallback to `https://essayy.com`
+
+### Testing Checklist:
+- [ ] Environment variable set in Vercel
+- [ ] All URLs added to Google Cloud Console
+- [ ] Application redeployed after changes
+- [ ] Browser cache cleared
+- [ ] Tested in incognito mode
+- [ ] Checked Vercel function logs
+- [ ] Verified Supabase Google provider is enabled
+
+---
+
+**If still having issues after following this guide, check the Vercel function logs for the OAuth callback route - it now includes detailed debugging information about which URLs are being used.**
+
+## Step 6: Environment Variables
 
 Make sure your `.env.local` file has the required Supabase variables:
 
@@ -86,30 +167,30 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 ```
 
-## Step 4: Testing
+## Step 7: Testing
 
-### 4.1 Test Locally
+### 7.1 Test Locally
 1. Start your development server: `npm run dev`
 2. Navigate to your login page
 3. Click "Continue with Google"
 4. You should be redirected to Google's OAuth consent screen
 5. After approval, you should be redirected back to your app and logged in
 
-### 4.2 Verify User Data
+### 7.2 Verify User Data
 After successful login, check that the user object contains:
 - `user.email`
 - `user.user_metadata.full_name`
 - `user.user_metadata.avatar_url`
 - `user.user_metadata.picture`
 
-## Step 5: Production Deployment
+## Step 8: Production Deployment
 
-### 5.1 Update Google Cloud Console
+### 8.1 Update Google Cloud Console
 1. Add your production domain to **Authorized JavaScript origins**
 2. Add your production callback URL to **Authorized redirect URIs**
 3. Update your OAuth consent screen with production domain
 
-### 5.2 Update Environment Variables
+### 8.2 Update Environment Variables
 Make sure your production environment has the correct Supabase variables.
 
 ## Troubleshooting
