@@ -139,6 +139,22 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- App Pages (Public) -->
+  <url>
+    <loc>https://www.essayy.com/app/essay/length-guide</loc>
+    <lastmod>2025-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Demo Pages -->
+  <url>
+    <loc>https://www.essayy.com/hero-demo</loc>
+    <lastmod>2025-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <!-- Other Important Pages -->
   <url>
     <loc>https://www.essayy.com/faq</loc>
