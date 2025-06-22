@@ -14,6 +14,7 @@ import { EssayEditor } from '@/components/EssayEditor'
 import { PenTool, Sparkles, Download, Save, BookOpen } from 'lucide-react'
 import Link from 'next/link'
 import type { EssayType, WritingStyle, CitationStyle } from '@/types'
+import { trackEvent, trackError } from '@/lib/analytics'
 
 function NewEssayPageContent() {
   const searchParams = useSearchParams()
@@ -34,6 +35,11 @@ function NewEssayPageContent() {
     const topicFromUrl = searchParams.get('topic')
     if (topicFromUrl) {
       setEssayData(prev => ({ ...prev, topic: decodeURIComponent(topicFromUrl) }))
+      // Track topic from URL
+      trackEvent('essay_topic_selected', {
+        essay_topic: decodeURIComponent(topicFromUrl),
+        source: 'url_parameter'
+      })
     }
   }, [searchParams])
 
@@ -55,6 +61,17 @@ function NewEssayPageContent() {
       setGenerateError('Please fill in all required fields before generating.')
       return
     }
+
+    // Track generation start
+    const startTime = Date.now()
+    trackEvent('essay_generation_started', {
+      essay_type: essayData.type,
+      essay_length: essayData.length,
+      essay_style: essayData.style,
+      citation_format: essayData.citation,
+      has_requirements: !!essayData.requirements,
+      has_sources: !!essayData.sources
+    })
 
     setIsGenerating(true)
     setGenerateError('')
@@ -83,6 +100,21 @@ function NewEssayPageContent() {
       }
 
       if (result.success) {
+        const generationTime = Date.now() - startTime
+        const wordCount = result.data.content.split(' ').length
+        
+        // Track successful generation
+        trackEvent('essay_generated', {
+          essay_type: essayData.type,
+          essay_length: essayData.length,
+          essay_style: essayData.style,
+          citation_format: essayData.citation,
+          generation_time: generationTime,
+          word_count: wordCount,
+          has_requirements: !!essayData.requirements,
+          has_sources: !!essayData.sources
+        })
+
         setEssayData(prev => ({ ...prev, content: result.data.content }))
         setSavedEssayId(result.data.id)
         setStep(6) // Move to final step
@@ -91,7 +123,22 @@ function NewEssayPageContent() {
       }
     } catch (error) {
       console.error('Generation error:', error)
-      setGenerateError(error instanceof Error ? error.message : 'Failed to generate essay')
+      const errorMessage = error instanceof Error ? error.message : 'Failed to generate essay'
+      setGenerateError(errorMessage)
+      
+      // Track generation failure
+      trackEvent('essay_generation_failed', {
+        essay_type: essayData.type,
+        essay_length: essayData.length,
+        error_message: errorMessage,
+        generation_time: Date.now() - startTime
+      })
+      
+      trackError(error instanceof Error ? error : new Error(errorMessage), {
+        context: 'essay_generation',
+        essay_type: essayData.type,
+        essay_length: essayData.length
+      })
     } finally {
       setIsGenerating(false)
     }
@@ -120,10 +167,41 @@ function NewEssayPageContent() {
       
       if (result.success) {
         setSavedEssayId(result.data.id)
+        
+        // Track essay save
+        trackEvent('essay_saved', {
+          essay_type: essayData.type,
+          essay_length: essayData.length,
+          word_count: essayData.content.split(' ').length
+        })
       }
     } catch (error) {
       console.error('Save error:', error)
+      trackError(error instanceof Error ? error : new Error('Failed to save essay'), {
+        context: 'essay_save'
+      })
     }
+  }
+
+  // Track selection changes
+  const handleTypeChange = (value: EssayType) => {
+    setEssayData(prev => ({ ...prev, type: value }))
+    trackEvent('essay_type_selected', { essay_type: value })
+  }
+
+  const handleStyleChange = (value: WritingStyle) => {
+    setEssayData(prev => ({ ...prev, style: value }))
+    trackEvent('essay_style_selected', { essay_style: value })
+  }
+
+  const handleCitationChange = (value: CitationStyle) => {
+    setEssayData(prev => ({ ...prev, citation: value }))
+    trackEvent('citation_format_selected', { citation_format: value })
+  }
+
+  const handleLengthChange = (value: number) => {
+    setEssayData(prev => ({ ...prev, length: value }))
+    trackEvent('essay_length_selected', { essay_length: value })
   }
 
   const renderStep = () => {
@@ -179,7 +257,7 @@ function NewEssayPageContent() {
             <CardContent>
               <LengthSlider
                 value={essayData.length}
-                onChange={(value) => setEssayData(prev => ({ ...prev, length: value }))}
+                onChange={handleLengthChange}
               />
             </CardContent>
           </Card>
@@ -197,7 +275,7 @@ function NewEssayPageContent() {
             <CardContent>
               <EssayTypeSelect
                 value={essayData.type}
-                onChange={(value) => setEssayData(prev => ({ ...prev, type: value }))}
+                onChange={handleTypeChange}
               />
             </CardContent>
           </Card>
@@ -213,10 +291,10 @@ function NewEssayPageContent() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-                             <StylePicker
-                 value={essayData.style as WritingStyle}
-                 onChange={(value) => setEssayData(prev => ({ ...prev, style: value }))}
-               />
+              <StylePicker
+                value={essayData.style as WritingStyle}
+                onChange={handleStyleChange}
+              />
             </CardContent>
           </Card>
         )
@@ -235,10 +313,10 @@ function NewEssayPageContent() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Citation Style <span className="text-red-500">*</span>
                 </label>
-                                 <CitationSelect
-                   value={essayData.citation as CitationStyle}
-                   onChange={(value) => setEssayData(prev => ({ ...prev, citation: value }))}
-                 />
+                <CitationSelect
+                  value={essayData.citation as CitationStyle}
+                  onChange={handleCitationChange}
+                />
               </div>
 
               <div>

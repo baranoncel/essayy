@@ -4,6 +4,7 @@ import './globals.css'
 import { AuthProvider } from '@/components/auth/AuthProvider'
 import { LoadingProvider } from '@/components/ui/loading-context'
 import { ToastProvider } from '@/components/ui/toast'
+import { Analytics } from '@vercel/analytics/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -91,6 +92,7 @@ export default function RootLayout({
             </AuthProvider>
           </ToastProvider>
         </LoadingProvider>
+        <Analytics />
       </body>
     </html>
   )
