@@ -5,6 +5,7 @@ import { AuthErrorHandler } from '@/components/auth/AuthErrorHandler'
 import { Footer } from '@/components/navigation/Footer'
 import { GlobalNavigation } from '@/components/navigation/GlobalNavigation'
 import { EssayTopicInput } from '@/components/EssayTopicInput'
+import LandingFAQ from '@/components/LandingFAQ'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -445,8 +446,6 @@ export default function HomePage() {
           </div>
         </section>
 
-
-
         {/* CTA Section */}
         <section className="bg-gradient-to-r from-gray-600 via-gray-500 to-gray-700 text-white py-20">
           <div className="container mx-auto px-4 text-center">
@@ -464,46 +463,8 @@ export default function HomePage() {
           </div>
         </section>
 
-              {/* FAQ Section */}
-        <section className="bg-white py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Frequently Asked Questions
-              </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Get answers to common questions about our AI essay writing platform
-              </p>
-            </div>
-            
-            <div className="max-w-4xl mx-auto space-y-6">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Is the AI essay writer really free?</h3>
-                <p className="text-gray-600">Yes, our basic AI essay writer is completely free to use. You can generate essays, use our AI humanizer, and access plagiarism detection without any cost. Premium features are available for advanced functionality.</p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">How does the AI essay generator work?</h3>
-                <p className="text-gray-600">Our AI uses advanced GPT-4 technology to analyze your topic and requirements, then generates well-structured, original essays with proper introduction, body paragraphs, and conclusion. It supports all major essay types and citation styles.</p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Is the content plagiarism-free?</h3>
-                <p className="text-gray-600">Absolutely. Our AI generates original content from scratch for every request. We also include built-in plagiarism detection to ensure 100% unique content that passes all academic integrity checks.</p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">What citation styles are supported?</h3>
-                <p className="text-gray-600">We support all major citation styles including APA, MLA, Chicago, Harvard, and more. Our citation generator automatically formats references according to the latest style guidelines.</p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Can I use this for academic assignments?</h3>
-                <p className="text-gray-600">Our tool is designed to assist with learning and provide guidance. Always check your institution's policies on AI assistance and use our platform ethically as a learning aid while developing your own critical thinking skills.</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* FAQ Section */}
+        <LandingFAQ />
 
         <Footer />
       </div>

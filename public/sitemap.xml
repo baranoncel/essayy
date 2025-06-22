@@ -141,6 +141,12 @@
 
   <!-- Other Important Pages -->
   <url>
+    <loc>https://www.essayy.com/faq</loc>
+    <lastmod>2025-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.essayy.com/pricing</loc>
     <lastmod>2025-06-22</lastmod>
     <changefreq>weekly</changefreq>
