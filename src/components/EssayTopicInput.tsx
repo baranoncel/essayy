@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { PenTool, ArrowRight, Sparkles } from 'lucide-react'
 import { AuthDialog } from './auth/AuthDialog'
 import { useAuth } from './auth/AuthProvider'
+import { trackEvent } from '@/lib/analytics'
 
 interface EssayTopicInputProps {
   className?: string
@@ -17,6 +18,7 @@ export function EssayTopicInput({ className = '' }: EssayTopicInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const { user } = useAuth()
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
   // Debug effect
   useEffect(() => {
@@ -27,16 +29,34 @@ export function EssayTopicInput({ className = '' }: EssayTopicInputProps) {
     console.log('Topic changed:', topic, 'Length:', topic.length, 'Trimmed:', topic.trim())
   }, [topic])
 
-  const handleGenerate = () => {
-    console.log('Generate button clicked. Topic:', topic)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     if (!topic.trim()) return
+
+    setIsLoading(true)
     
-    if (user) {
-      // User is logged in, redirect to essay creation with topic
+    // Track essay topic submission from homepage
+    trackEvent('essay_topic_selected', {
+      essay_topic: topic.trim(),
+      source: 'homepage_input',
+      topic_length: topic.trim().length
+    })
+
+    // Track demo start
+    trackEvent('demo_started', {
+      demo_type: 'essay_generation',
+      topic: topic.trim()
+    })
+
+    try {
+      // Navigate to essay creation with the topic
       const encodedTopic = encodeURIComponent(topic.trim())
       router.push(`/app/essay/new?topic=${encodedTopic}`)
+    } catch (error) {
+      console.error('Navigation error:', error)
+    } finally {
+      setIsLoading(false)
     }
-    // If user is not logged in, AuthDialog will handle the login/register flow
   }
 
   const handleAuthSuccess = () => {
@@ -62,6 +82,13 @@ export function EssayTopicInput({ className = '' }: EssayTopicInputProps) {
   }
 
   const isDisabled = !topic.trim()
+
+  const handleInputFocus = () => {
+    // Track when user starts engaging with the input
+    trackEvent('homepage_input_focused', {
+      input_type: 'essay_topic'
+    })
+  }
 
   return (
     <div className={`w-full max-w-4xl mx-auto ${className}`}>
@@ -109,7 +136,7 @@ export function EssayTopicInput({ className = '' }: EssayTopicInputProps) {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
                   e.preventDefault()
-                  handleGenerate()
+                  handleSubmit(e)
                 }
               }}
             />
@@ -138,31 +165,49 @@ export function EssayTopicInput({ className = '' }: EssayTopicInputProps) {
         <div className="flex justify-end p-4 pt-2">
           {user ? (
             <button
-              type="button"
-              onClick={handleGenerate}
-              disabled={isDisabled}
+              type="submit"
+              onClick={handleSubmit}
+              disabled={isDisabled || isLoading}
               className={`flex items-center px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                isDisabled
+                isDisabled || isLoading
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-gradient-to-r from-gray-500 via-gray-400 to-gray-600 hover:from-gray-600 hover:via-gray-500 hover:to-gray-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
               }`}
             >
-              <span>Generate Essay</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
+              {isLoading ? (
+                <>
+                  <Sparkles className="h-4 w-4 mr-2 animate-spin" />
+                  Starting...
+                </>
+              ) : (
+                <>
+                  <PenTool className="w-4 h-4 mr-2" />
+                  Generate Essay
+                </>
+              )}
             </button>
           ) : (
             <AuthDialog onAuthSuccess={handleAuthSuccess}>
               <button
-                type="button"
-                disabled={isDisabled}
+                type="submit"
+                disabled={isDisabled || isLoading}
                 className={`flex items-center px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                  isDisabled
+                  isDisabled || isLoading
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     : 'bg-gradient-to-r from-gray-500 via-gray-400 to-gray-600 hover:from-gray-600 hover:via-gray-500 hover:to-gray-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
                 }`}
               >
-                <span>Generate Essay</span>
-                <ArrowRight className="w-4 h-4 ml-2" />
+                {isLoading ? (
+                  <>
+                    <Sparkles className="h-4 w-4 mr-2 animate-spin" />
+                    Starting...
+                  </>
+                ) : (
+                  <>
+                    <PenTool className="w-4 h-4 mr-2" />
+                    Generate Essay
+                  </>
+                )}
               </button>
             </AuthDialog>
           )}

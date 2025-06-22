@@ -44,6 +44,7 @@ export type AnalyticsEvent =
   | 'demo_completed'
   | 'contact_form_submitted'
   | 'newsletter_signup'
+  | 'homepage_input_focused'
   
   // Billing Events
   | 'billing_page_visited'
