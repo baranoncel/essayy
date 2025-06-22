@@ -7,7 +7,7 @@
 **Step 1: Add Your Site to Google Search Console**
 1. Go to [Google Search Console](https://search.google.com/search-console/)
 2. Click "Add Property"
-3. Choose "URL prefix" and enter: `https://essayy.com`
+3. Choose "URL prefix" and enter: `https://www.essayy.com`
 4. Verify ownership using one of these methods:
    - **HTML file upload** (recommended)
    - **HTML tag** (add to your site's head)
@@ -16,23 +16,23 @@
 
 **Step 2: Submit Your Sitemap**
 1. In Google Search Console, go to "Sitemaps"
-2. Add sitemap URL: `https://essayy.com/sitemap.xml`
+2. Add sitemap URL: `https://www.essayy.com/sitemap.xml`
 3. Click "Submit"
 
 **Step 3: Request Indexing**
 1. Go to "URL Inspection" in Search Console
-2. Enter your homepage URL: `https://essayy.com`
+2. Enter your homepage URL: `https://www.essayy.com`
 3. Click "Request Indexing"
 4. Repeat for key pages:
-   - `https://essayy.com/features/essay-writer`
-   - `https://essayy.com/features/ai-humanizer`
-   - `https://essayy.com/blog`
+   - `https://www.essayy.com/features/essay-writer`
+   - `https://www.essayy.com/features/ai-humanizer`
+   - `https://www.essayy.com/blog`
 
 ### 2. Bing Webmaster Tools Setup
 
 1. Go to [Bing Webmaster Tools](https://www.bing.com/webmasters/)
-2. Add your site: `https://essayy.com`
-3. Submit sitemap: `https://essayy.com/sitemap.xml`
+2. Add your site: `https://www.essayy.com`
+3. Submit sitemap: `https://www.essayy.com/sitemap.xml`
 
 ### 3. Manual URL Submission
 

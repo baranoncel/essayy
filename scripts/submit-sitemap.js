@@ -8,7 +8,7 @@
 const https = require('https');
 const { URL } = require('url');
 
-const SITE_URL = 'https://essayy.com';
+const SITE_URL = 'https://www.essayy.com';
 const SITEMAP_URL = `${SITE_URL}/sitemap.xml`;
 
 // Function to ping search engines

@@ -21,4 +21,4 @@ Allow: /contact/
 Crawl-delay: 1
 
 # Sitemap
-Sitemap: https://essayy.com/sitemap.xml 
+Sitemap: https://www.essayy.com/sitemap.xml 
